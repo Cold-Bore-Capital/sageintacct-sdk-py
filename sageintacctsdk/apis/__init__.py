@@ -30,6 +30,7 @@ from .location_entities import LocationEntities
 from .tax_details import TaxDetails
 from .gl_detail import GLDetail
 from .classes import Classes
+from .customer_types import CustomerTypes
 
 __all__ = [
     'ApiBase',
@@ -47,6 +48,7 @@ __all__ = [
     'ChargeCardAccounts',
     'ChargeCardTransactions',
     'Customers',
+    'CustomerTypes',
     'Items',
     'APPayments',
     'ARInvoices',
