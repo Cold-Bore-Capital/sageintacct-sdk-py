@@ -255,7 +255,8 @@ class ApiBase:
     def post(self, data: Dict):
         if self.__dimension in ('CCTRANSACTION', 'EPPAYMENT'):
             return self.__construct_post_legacy_payload(data)
-
+        elif self.__dimension == 'create_invoice':
+            return self.__construct_post_legacy_payload(data)
         return self.__construct_post_payload(data)
 
     def __construct_post_payload(self, data: Dict):

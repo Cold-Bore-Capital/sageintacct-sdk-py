@@ -17,6 +17,7 @@ from .charge_card_accounts import ChargeCardAccounts
 from .charge_card_transactions import ChargeCardTransactions
 from .customers import Customers
 from .items import Items
+from .invoices import Invoices
 from .ap_payments import APPayments
 from .ar_invoices import ARInvoices
 from .reimbursements import Reimbursements
@@ -50,6 +51,7 @@ __all__ = [
     'Customers',
     'CustomerTypes',
     'Items',
+    'Invoices',
     'APPayments',
     'ARInvoices',
     'Reimbursements',
