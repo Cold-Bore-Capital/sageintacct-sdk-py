@@ -20,6 +20,7 @@ from .items import Items
 from .invoices import Invoices
 from .ap_payments import APPayments
 from .ar_invoices import ARInvoices
+from .ar_adjustment import ARAdjustment
 from .reimbursements import Reimbursements
 from .checking_accounts import CheckingAccounts
 from .savings_accounts import SavingsAccounts
@@ -54,6 +55,7 @@ __all__ = [
     'Invoices',
     'APPayments',
     'ARInvoices',
+    'ARAdjustment',
     'Reimbursements',
     'CheckingAccounts',
     'SavingsAccounts',
