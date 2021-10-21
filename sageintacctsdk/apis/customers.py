@@ -11,19 +11,19 @@ class Customers(ApiBase):
     def __init__(self):
         ApiBase.__init__(self, dimension='CUSTOMER')
 
-    def get_all(self):
-        """Get all customers from Sage Intacct
-
-        Returns:
-            List of Dict in Customers schema.
-        """
-        data = {
-            'readByQuery': {
-                'object': 'CUSTOMER',
-                'fields': '*',
-                'query': None,
-                'pagesize': '1000'
-            }
-        }
-
-        return self.format_and_send_request(data)['data']['customer']
+    # def get_all(self):
+    #     """Get all customers from Sage Intacct
+    #
+    #     Returns:
+    #         List of Dict in Customers schema.
+    #     """
+    #     data = {
+    #         'readByQuery': {
+    #             'object': 'CUSTOMER',
+    #             'fields': '*',
+    #             'query': None,
+    #             'pagesize': '1000'
+    #         }
+    #     }
+    #
+    #     return self.format_and_send_request(data)['data']['customer']

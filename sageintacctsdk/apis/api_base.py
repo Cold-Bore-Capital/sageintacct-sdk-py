@@ -255,7 +255,17 @@ class ApiBase:
     def post(self, data: Dict):
         if self.__dimension in ('CCTRANSACTION', 'EPPAYMENT', 'create_invoice', 'create_aradjustment'):
             return self.__construct_post_legacy_payload(data)
+        elif self.__dimension == 'readReport':
+            return self.__construct_run_report(data)
         return self.__construct_post_payload(data)
+
+    def __construct_run_report(self, data: str):
+        payload = {
+            "readReport": {
+                #'type': "interactive",
+                'report': data
+            }}
+        return self.format_and_send_request(payload)
 
     def __construct_post_payload(self, data: Dict):
         payload = {
