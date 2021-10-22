@@ -94,6 +94,7 @@ class ApiBase:
         else:
             raise SageIntacctSDKError('Error: {0}'.format(response['errormessage']))
 
+    # TODO: Change to property decorators
     def set_session_id(self, session_id: str):
         """
         Set the session id for APIs
