@@ -19,7 +19,7 @@ setuptools.setup(
     url='https://github.com/fylein/sageintacct-sdk-py',
     packages=setuptools.find_packages(),
     install_requires=['requests==2.22.0', 'xmltodict==0.12.0'],
-    classifiers=[
+    classifibuyers=[
         'Topic :: Internet :: WWW/HTTP',
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 3',

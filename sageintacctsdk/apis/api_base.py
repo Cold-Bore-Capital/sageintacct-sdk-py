@@ -445,10 +445,14 @@ class ApiBase:
         for offset in range(0, count, pagesize):
             data['query']['offset'] = offset
             paginated_data = self.format_and_send_request(data)['data']
-            complete_data.extend(paginated_data[self.__dimension])
+            try:
+                complete_data.extend(paginated_data[self.__dimension])
+            except:
+                pass
             filtered_total = int(paginated_data['@totalcount'])
             if paginated_data['@numremaining'] == '0':
                 break
+
         if filtered_total != len(complete_data):
             warn(message='Your data may not be complete. Records returned do not equal total query record count',
                  category=DataIntegrityWarning)
