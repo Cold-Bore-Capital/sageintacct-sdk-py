@@ -34,6 +34,7 @@ from .gl_detail import GLDetail
 from .classes import Classes
 from .customer_types import CustomerTypes
 from .read_report import ReadReport
+from .update_invoices import UpdateInvoices
 
 __all__ = [
     'ApiBase',
@@ -68,5 +69,6 @@ __all__ = [
     'TaxDetails',
     'GLDetail',
     'Classes',
-    'ReadReport'
+    'ReadReport',
+    'UpdateInvoices',
 ]

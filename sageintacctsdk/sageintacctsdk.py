@@ -4,7 +4,7 @@ Sage Intacct Python SDK
 from .apis import ApiBase, Contacts, Locations, Employees, Accounts, ExpenseTypes, Attachments, ExpenseReports,\
     Vendors, Bills, Projects, Departments, ChargeCardAccounts, ChargeCardTransactions, Customers, Items,\
     APPayments, Reimbursements, CheckingAccounts, SavingsAccounts, Tasks, ExpensePaymentTypes, Dimensions,\
-    DimensionValues, LocationEntities, ARInvoices, TaxDetails, GLDetail, Classes, CustomerTypes, Invoices, ARAdjustment, ReadReport
+    DimensionValues, LocationEntities, ARInvoices, TaxDetails, GLDetail, Classes, CustomerTypes, Invoices, ARAdjustment, ReadReport, UpdateInvoices
 
 
 class SageIntacctSDK:
@@ -64,9 +64,11 @@ class SageIntacctSDK:
         self.gl_detail = GLDetail()
         self.classes = Classes()
         self.read_report = ReadReport()
+        self.update_invoices = UpdateInvoices()
         self.update_sender_id()
         self.update_sender_password()
         self.update_session_id()
+
 
     def update_sender_id(self):
         """
@@ -105,6 +107,7 @@ class SageIntacctSDK:
         self.gl_detail.set_sender_id(self.__sender_id)
         self.classes.set_sender_id(self.__sender_id)
         self.read_report.set_sender_id(self.__sender_id)
+        self.update_invoices.set_sender_id(self.__sender_id)
 
     def update_sender_password(self):
         """
@@ -143,6 +146,7 @@ class SageIntacctSDK:
         self.gl_detail.set_sender_password(self.__sender_password)
         self.classes.set_sender_password(self.__sender_password)
         self.read_report.set_sender_password(self.__sender_password)
+        self.update_invoices.set_sender_password(self.__sender_password)
 
     def update_session_id(self):
         """
@@ -183,3 +187,4 @@ class SageIntacctSDK:
         self.gl_detail.set_session_id(self.__session_id)
         self.classes.set_session_id(self.__session_id)
         self.read_report.set_session_id(self.__session_id)
+        self.update_invoices.set_session_id(self.__session_id)
