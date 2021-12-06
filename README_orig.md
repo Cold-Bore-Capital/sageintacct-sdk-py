@@ -1,34 +1,31 @@
-# Sage Intacct SDK - CBC Fork
+# Sage Intacct SDK
 Python SDK to access Sage Intacct web services
-Original README.md: README_orig.md 
 
 ## Installation
+
 This project requires [Python 3+](https://www.python.org/downloads/) and [Requests](https://pypi.org/project/requests/) library (pip install requests).
 
 1. Download this project and use it (copy it in your project, etc).
 2. Install it from [pip](https://pypi.org).
         
-        $ pip install -e git+https://github.com/Cold-Bore-Capital/sageintacct-sdk-py.git@master#egg=sageintacctsdk
+        $ pip install sageintacctsdk
 
 ## Usage
 
 To use this SDK you'll need these Sage Intacct credentials used for authentication: **sender ID**, **sender password**, **user ID**, **company ID** and **user password**.
 
-
-1. Create credentials as environment variables:
-   - SENDER_ID 
-   - SENDER_PASSWORD 
-   - SAGE_USER_ID 
-   - COMPANY_ID 
-   - SAGE_USER_PASSWORD
+This SDK is very easy to use.
+1. First you'll need to create a connection using the main class SageIntacctSDK.
 ```python
 from sageintacctsdk import SageIntacctSDK
-connection = SageIntacctSDK(sender_id=os.environ['SENDER_ID'],
-                           sender_password=os.environ['SENDER_PASSWORD'],
-                           user_id=os.environ['SAGE_USER_ID'],
-                           company_id=os.environ['COMPANY_ID'],
-                           user_password=os.environ['SAGE_USER_PASSWORD'])
 
+connection = SageIntacctSDK(
+    sender_id='<YOUR SENDER ID>',
+    sender_password='<YOUR SENDER PASSWORD>',
+    user_id='<YOUR USER ID>',
+    company_id='<YOUR COMPANY ID>',
+    user_password='<YOUR USER PASSWORD>'
+)
 ```
 2. After that you'll be able to access any of the 24 API classes: accounts, ap_payments, ar_invoices, attachments, bills, charge_card_accounts, charge_card_transactions, checking_accounts, classes, contacts, customers, departments, employees, expense_payment_types, expense_reports, expense_types, gl_detail, items, locations, projects, reimbursements, savings_accounts, tasks and vendors.
 ```python
@@ -68,8 +65,6 @@ response = connection.accounts.get_all()
 # Get details of Employee with EMPLOYEEID E101
 response = connection.employees.get(field='EMPLOYEEID', value='E101')
 ```
-
-## CBC Examples
 
 ## Advanced Queries
 Several methods of querying the Sage Inacct API exists within the SDK.  <get_by_query> allows you to specify multiple 
