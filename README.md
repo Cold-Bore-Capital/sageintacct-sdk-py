@@ -1,6 +1,15 @@
 # Sage Intacct SDK - CBC Fork
-Python SDK to access Sage Intacct web services
-Original README.md: README_orig.md 
+###Python SDK to access Sage Intacct web services. 
+
+### Original readme renamed to README_orig.md
+
+## Outline
+ ###- Installation
+ ###- Usage
+ ###- Advanced Queries
+ ###- CBC Additions
+
+ 
 
 ## Installation
 This project requires [Python 3+](https://www.python.org/downloads/) and [Requests](https://pypi.org/project/requests/) library (pip install requests).
@@ -8,7 +17,8 @@ This project requires [Python 3+](https://www.python.org/downloads/) and [Reques
 1. Download this project and use it (copy it in your project, etc).
 2. Install it from [pip](https://pypi.org).
         
-        $ pip install -e git+https://github.com/Cold-Bore-Capital/sageintacct-sdk-py.git@master#egg=sageintacctsdk
+        $ pip install -e git+https://github.com/Cold-Bore-Capital/sageintacct-sdk-py.git@0.0.4#egg=sageintacctsdk
+
 
 ## Usage
 
@@ -69,8 +79,6 @@ response = connection.accounts.get_all()
 response = connection.employees.get(field='EMPLOYEEID', value='E101')
 ```
 
-## CBC Examples
-
 ## Advanced Queries
 Several methods of querying the Sage Inacct API exists within the SDK.  <get_by_query> allows you to specify multiple 
 critera using textual mathematical operators and logical filters.  
@@ -111,8 +119,37 @@ response = connnection.gl_detail.get_by_query(filter_payload=payload)
 
 ```
 
-See more details about the usage into the wiki pages of this project.
+## CBC Additions
+### New API based classes:
 
+#### Invoices 
+- This script creates a class within sageintaact-sdk to post Invoices:
+  - https://github.com/Cold-Bore-Capital/sageintacct-sdk-py/blob/master/sageintacctsdk/apis/invoices.py
+- Example in production to update Invoices:
+  - https://github.com/Cold-Bore-Capital/rsp-etl/blob/master/app/parsers/sg_invoice_daily.py
+- Class usage:
+    - Connection.invoices.post
+
+#### ARAdjustment
+- This script creates a class within sageintaact-sdk to post ARAdjustments. 
+  - https://github.com/Cold-Bore-Capital/sageintacct-sdk-py/blob/master/sageintacctsdk/apis/ar_adjustment.py
+- Example in production to update ARAdjustments:
+  - https://github.com/Cold-Bore-Capital/rsp-etl/blob/master/app/parsers/sg_invoice_daily.py
+- Class usage:
+    - Connection.ar_adjustment.post
+
+#### UpdateInvoices
+- This script creates a class within sageintaact-sdk to update invoices.
+  - https://github.com/Cold-Bore-Capital/sageintacct-sdk-py/blob/master/sageintacctsdk/apis/update_invoices.py
+- Example in production to update dates of invoices
+  - https://github.com/Cold-Bore-Capital/rsp-etl/blob/master/app/parsers/sg_invoice_dup.py
+- Class usage:
+    - Connection.update_invoices.post
+#### ReadReport
+ - Reads a custom report and then wrangles data into an exportable format for a db.
+   - tps://github.com/Cold-Bore-Capital/sage-report-parser/blob/main/app/parsers/sage_parser.py
+
+    
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
