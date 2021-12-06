@@ -1,13 +1,13 @@
 # Sage Intacct SDK - CBC Fork
-###Python SDK to access Sage Intacct web services. 
+### Python SDK to access Sage Intacct web services. 
 
 ### Original readme renamed to README_orig.md
 
 ## Outline
- ###- Installation
- ###- Usage
- ###- Advanced Queries
- ###- CBC Additions
+ ### - Installation
+ ### - Usage
+ ### - Advanced Queries
+ ### - CBC Additions
 
  
 
