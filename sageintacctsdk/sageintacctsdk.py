@@ -4,7 +4,7 @@ Sage Intacct Python SDK
 from .apis import ApiBase, Contacts, Locations, Employees, Accounts, ExpenseTypes, Attachments, ExpenseReports,\
     Vendors, Bills, Projects, Departments, ChargeCardAccounts, ChargeCardTransactions, Customers, Items,\
     APPayments, Reimbursements, CheckingAccounts, SavingsAccounts, Tasks, ExpensePaymentTypes, Dimensions,\
-    DimensionValues, LocationEntities, ARInvoices, TaxDetails, GLDetail, Classes, CustomerTypes, Invoices, ARAdjustment, ReadReport, UpdateInvoices
+    DimensionValues, LocationEntities, ARInvoices, TaxDetails, GLDetail, Classes, CustomerTypes, Invoices, ARAdjustment, ReadReport, UpdateInvoices, UpdateCustomer
 
 
 class SageIntacctSDK:

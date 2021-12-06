@@ -35,6 +35,7 @@ from .classes import Classes
 from .customer_types import CustomerTypes
 from .read_report import ReadReport
 from .update_invoices import UpdateInvoices
+from .update_customers import UpdateCustomers
 
 __all__ = [
     'ApiBase',
@@ -71,4 +72,5 @@ __all__ = [
     'Classes',
     'ReadReport',
     'UpdateInvoices',
+    'UpdateCustomers'
 ]
