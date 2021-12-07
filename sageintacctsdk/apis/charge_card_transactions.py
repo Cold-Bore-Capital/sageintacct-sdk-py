@@ -9,7 +9,7 @@ from .api_base import ApiBase
 class ChargeCardTransactions(ApiBase):
     """Class for Charge Card Transactions APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='CCTRANSACTION', post_legacy_method='record_cctransaction')
+        super().__init__(dimension='CCTRANSACTION', post_legacy_method='record_cctransaction')
 
     def update_attachment(self, key: str, supdocid: str):
         """Update charge card transactions with supdocid

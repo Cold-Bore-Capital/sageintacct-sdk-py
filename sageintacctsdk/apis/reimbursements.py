@@ -9,7 +9,7 @@ from .api_base import ApiBase
 class Reimbursements(ApiBase):
     """Class for Reimbursements APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='EPPAYMENT', post_legacy_method='create_reimbursementrequest')
+        super().__init__(dimension='EPPAYMENT', post_legacy_method='create_reimbursementrequest')
 
     def get_all(self):
         """Get all Reimbursements from Sage Intacct

@@ -9,7 +9,7 @@ from .api_base import ApiBase
 class APPayments(ApiBase):
     """Class for AP Payments APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='APPYMT')
+        super().__init__(dimension='APPYMT')
 
     def get_all(self):
         """Get all AP Payments from Sage Intacct

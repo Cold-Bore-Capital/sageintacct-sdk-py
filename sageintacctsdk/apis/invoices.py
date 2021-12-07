@@ -8,4 +8,4 @@ from .api_base import ApiBase
 class Invoices(ApiBase):
     """Class for AR Invoice APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='create_invoice', post_legacy_method='create_invoice')
+        super().__init__(dimension='create_invoice', post_legacy_method='create_invoice')

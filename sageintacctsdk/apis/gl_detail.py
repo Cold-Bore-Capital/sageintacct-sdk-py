@@ -9,4 +9,4 @@ from .api_base import ApiBase
 class GLDetail(ApiBase):
     """Class for GL Detail APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='GLDETAIL')
+        super().__init__(dimension='GLDETAIL')

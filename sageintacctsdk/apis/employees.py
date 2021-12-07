@@ -9,4 +9,4 @@ from .api_base import ApiBase
 class Employees(ApiBase):
     """Class for Employees APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='EMPLOYEE')
+        super().__init__(dimension='EMPLOYEE')

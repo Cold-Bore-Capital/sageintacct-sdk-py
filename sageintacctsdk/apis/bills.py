@@ -9,7 +9,7 @@ from .api_base import ApiBase
 class Bills(ApiBase):
     """Class for Bills APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='APBILL')
+        super().__init__(dimension='APBILL')
 
     def update_attachment(self, recordno: str, supdocid: str):
         """Update bill with supdocid
