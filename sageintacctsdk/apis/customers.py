@@ -9,21 +9,8 @@ from .api_base import ApiBase
 class Customers(ApiBase):
     """Class for Customers APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='CUSTOMER')
+        super().__init__(dimension='CUSTOMER')
 
-    # def get_all(self):
-    #     """Get all customers from Sage Intacct
-    #
-    #     Returns:
-    #         List of Dict in Customers schema.
-    #     """
-    #     data = {
-    #         'readByQuery': {
-    #             'object': 'CUSTOMER',
-    #             'fields': '*',
-    #             'query': None,
-    #             'pagesize': '1000'
-    #         }
-    #     }
-    #
-    #     return self.format_and_send_request(data)['data']['customer']
+    def update_customer(self, data, dimension='update_customer'):
+        self.dimension = dimension
+        return self._construct_post_legacy_payload(data)

@@ -21,13 +21,57 @@ class ApiBase:
     """The base class for all API classes."""
 
     def __init__(self, dimension: str = None, pagesize: int = 2000, post_legacy_method: str = None):
-        self.__sender_id = None
-        self.__sender_password = None
-        self.__session_id = None
-        self.__api_url = 'https://api.intacct.com/ia/xml/xmlgw.phtml'
-        self.__dimension = dimension
-        self.__pagesize = pagesize
-        self.__post_legacy_method = post_legacy_method
+        self._sender_id = None
+        self._sender_password = None
+        self._session_id = None
+        self._api_url = 'https://api.intacct.com/ia/xml/xmlgw.phtml'
+        self._dimension = dimension
+        self._pagesize = pagesize
+        self._post_legacy_method = post_legacy_method
+
+    @property
+    def dimension(self):
+        return self._post_legacy_method
+
+    @dimension.setter
+    def dimension(self, dimension: str):
+        """
+        Set the sender id for APIs
+        :param post_legacy_method: sender id
+        :return: None
+        """
+        self._dimension = dimension
+
+    @property
+    def post_legacy_method(self):
+        return self._post_legacy_method
+
+    @post_legacy_method.setter
+    def post_legacy_method(self, post_legacy_method: str):
+        """
+        Set the sender id for APIs
+        :param post_legacy_method: sender id
+        :return: None
+        """
+        self._post_legacy_method = post_legacy_method
+
+    @property
+    def sender_id(self):
+        """
+        Set the sender id for APIs
+        :param sender_id: sender id
+        :return: None
+        """
+        return self._sender_id
+
+    @sender_id.setter
+    def sender_id(self, sender_id: str):
+        """
+        Set the sender id for APIs
+        :param sender_id: sender id
+        :return: None
+        """
+        self._sender_id = sender_id
 
     def set_sender_id(self, sender_id: str):
         """
@@ -35,7 +79,7 @@ class ApiBase:
         :param sender_id: sender id
         :return: None
         """
-        self.__sender_id = sender_id
+        self._sender_id = sender_id
 
     def set_sender_password(self, sender_password: str):
         """
@@ -43,7 +87,7 @@ class ApiBase:
         :param sender_password: sender id
         :return: None
         """
-        self.__sender_password = sender_password
+        self._sender_password = sender_password
 
     def get_session_id(self, user_id: str, company_id: str, user_password: str, entity_id: str = None):
         """
@@ -56,8 +100,8 @@ class ApiBase:
         dict_body = {
             'request': {
                 'control': {
-                    'senderid': self.__sender_id,
-                    'password': self.__sender_password,
+                    'senderid': self._sender_id,
+                    'password': self._sender_password,
                     'controlid': timestamp,
                     'uniqueid': False,
                     'dtdversion': 3.0,
@@ -82,14 +126,14 @@ class ApiBase:
             }
         }
 
-        response = self.__post_request(dict_body, self.__api_url)
+        response = self._post_request(dict_body, self._api_url)
 
         if response['authentication']['status'] == 'success':
             session_details = response['result']['data']['api']
-            self.__api_url = session_details['endpoint']
-            self.__session_id = session_details['sessionid']
+            self._api_url = session_details['endpoint']
+            self._session_id = session_details['sessionid']
 
-            return self.__session_id
+            return self._session_id
 
         else:
             raise SageIntacctSDKError('Error: {0}'.format(response['errormessage']))
@@ -101,9 +145,9 @@ class ApiBase:
         :param session_id: session id
         :return: None
         """
-        self.__session_id = session_id
+        self._session_id = session_id
 
-    def __support_id_msg(self, errormessages):
+    def _support_id_msg(self, errormessages):
         """Finds whether the error messages is list / dict and assign type and error assignment.
 
         Parameters:
@@ -122,7 +166,7 @@ class ApiBase:
 
         return error
 
-    def __decode_support_id(self, errormessages):
+    def _decode_support_id(self, errormessages):
         """Decodes Support ID.
 
         Parameters:
@@ -131,7 +175,7 @@ class ApiBase:
         Returns:
             Same error message with decoded Support ID.
         """
-        support_id_msg = self.__support_id_msg(errormessages)
+        support_id_msg = self._support_id_msg(errormessages)
         data_type = support_id_msg['type']
         error = support_id_msg['error']
         if (error and error['description2']):
@@ -149,7 +193,7 @@ class ApiBase:
 
         return errormessages
 
-    def __post_request(self, dict_body: dict, api_url: str):
+    def _post_request(self, dict_body: dict, api_url: str):
         """Create a HTTP post request.
 
         Parameters:
@@ -167,7 +211,7 @@ class ApiBase:
 
         response = requests.post(api_url, headers=api_headers, data=body)
 
-        parsed_xml = xmltodict.parse(response.text, force_list={self.__dimension})
+        parsed_xml = xmltodict.parse(response.text, force_list={self._dimension})
         parsed_response = json.loads(json.dumps(parsed_xml))
 
         if response.status_code == 200:
@@ -175,7 +219,7 @@ class ApiBase:
                 api_response = parsed_response['response']['operation']
 
             if parsed_response['response']['control']['status'] == 'failure':
-                exception_msg = self.__decode_support_id(parsed_response['response']['errormessage'])
+                exception_msg = self._decode_support_id(parsed_response['response']['errormessage'])
                 raise WrongParamsError('Some of the parameters are wrong', exception_msg)
 
             if api_response['authentication']['status'] == 'failure':
@@ -185,7 +229,7 @@ class ApiBase:
                 return api_response
 
             if api_response['result']['status'] == 'failure':
-                exception_msg = self.__decode_support_id(api_response['result']['errormessage'])
+                exception_msg = self._decode_support_id(api_response['result']['errormessage'])
 
                 for error in exception_msg['error']:
                     if error['description2'] and 'You do not have permission for API' in error['description2']:
@@ -229,8 +273,8 @@ class ApiBase:
         dict_body = {
             'request': {
                 'control': {
-                    'senderid': self.__sender_id,
-                    'password': self.__sender_password,
+                    'senderid': self._sender_id,
+                    'password': self._sender_password,
                     'controlid': timestamp,
                     'uniqueid': False,
                     'dtdversion': 3.0,
@@ -238,7 +282,7 @@ class ApiBase:
                 },
                 'operation': {
                     'authentication': {
-                        'sessionid': self.__session_id
+                        'sessionid': self._session_id
                     },
                     'content': {
                         'function': {
@@ -250,19 +294,32 @@ class ApiBase:
             }
         }
 
-        response = self.__post_request(dict_body, self.__api_url)
+        response = self._post_request(dict_body, self._api_url)
         return response['result']
 
     def post(self, data: Dict):
-        if self.__dimension in ('CCTRANSACTION', 'EPPAYMENT', 'create_invoice', 'create_aradjustment','update_invoice','update_customer'):
-            return self.__construct_post_legacy_payload(data)
-        elif self.__dimension == 'readReport':
-            return self.__construct_run_report(data)
+        if self._dimension in ('CCTRANSACTION', 'EPPAYMENT', 'create_invoice', 'create_aradjustment','update_invoice','update_customer'):
+            return self._construct_post_legacy_payload(data)
 
+        elif self._dimension == 'readReport':
+            return self._construct_run_report(data)
 
-        return self.__construct_post_payload(data)
+        elif (self._dimension == 'ARINVOICE' and self._post_legacy_method=='delete'):
+            return self._construct_delete(data)
 
-    def __construct_run_report(self, data: str):
+        else:
+            return self._construct_post_payload(data)
+
+    def _construct_post_payload(self, data: Dict):
+        payload = {
+            'create': {
+                self._dimension: data
+            }
+        }
+
+        return self.format_and_send_request(payload)
+
+    def _construct_run_report(self, data: str):
         payload = {
             "readReport": {
                 #'type': "interactive",
@@ -270,26 +327,26 @@ class ApiBase:
             }}
         return self.format_and_send_request(payload)
 
-    def __construct_post_payload(self, data: Dict):
-        payload = {
-            'create': {
-                self.__dimension: data
-            }
-        }
-
+    def _construct_delete(self, data: str) -> str:
+        payload = {"delete": data}
         return self.format_and_send_request(payload)
 
-    def __construct_post_legacy_payload(self, data: Dict):
+    def _construct_post_legacy_payload(self, data: Dict):
         payload = {
-            self.__post_legacy_method: data
+            self._post_legacy_method: data
         }
+        return self.format_and_send_request(payload)
 
+    def _construct_post_legacy_aradjustment_payload(self, data: Dict):
+        payload = {
+            'create_aradjustment': data
+        }
         return self.format_and_send_request(payload)
 
     def count(self):
         get_count = {
             'query': {
-                'object': self.__dimension,
+                'object': self._dimension,
                 'select': {
                     'field': 'RECORDNO'
                 },
@@ -311,7 +368,7 @@ class ApiBase:
         """
         payload = {
             'readByQuery': {
-                'object': self.__dimension,
+                'object': self._dimension,
                 'fields': ','.join(fields) if fields else '*',
                 'query': None,
                 'pagesize': '1000'
@@ -332,7 +389,7 @@ class ApiBase:
         """
         data = {
             'readByQuery': {
-                'object': self.__dimension,
+                'object': self._dimension,
                 'fields': ','.join(fields) if fields else '*',
                 'query': "{0} = '{1}'".format(field, value),
                 'pagesize': '1000'
@@ -349,13 +406,13 @@ class ApiBase:
         """
         complete_data = []
         count = self.count()
-        pagesize = self.__pagesize
+        pagesize = self._pagesize
         for offset in range(0, count, pagesize):
             data = {
                 'query': {
-                    'object': self.__dimension,
+                    'object': self._dimension,
                     'select': {
-                        'field': fields if fields else dimensions_fields_mapping[self.__dimension]
+                        'field': fields if fields else dimensions_fields_mapping[self._dimension]
                     },
                     'pagesize': pagesize,
                     'offset': offset
@@ -370,7 +427,7 @@ class ApiBase:
                     }
                 }
 
-            paginated_data = self.format_and_send_request(data)['data'][self.__dimension]
+            paginated_data = self.format_and_send_request(data)['data'][self._dimension]
             complete_data.extend(paginated_data)
 
         return complete_data
@@ -401,14 +458,14 @@ class ApiBase:
 
         complete_data = []
         count = self.count()
-        pagesize = self.__pagesize
+        pagesize = self._pagesize
         offset = 0
         formatted_filter = filter_payload
         data = {
             'query': {
-                'object': self.__dimension,
+                'object': self._dimension,
                 'select': {
-                    'field': fields if fields else dimensions_fields_mapping[self.__dimension]
+                    'field': fields if fields else dimensions_fields_mapping[self._dimension]
                 },
                 'pagesize': pagesize,
                 'offset': offset
@@ -448,7 +505,7 @@ class ApiBase:
             data['query']['offset'] = offset
             paginated_data = self.format_and_send_request(data)['data']
             try:
-                complete_data.extend(paginated_data[self.__dimension])
+                complete_data.extend(paginated_data[self._dimension])
             except:
                 pass
             filtered_total = int(paginated_data['@totalcount'])
@@ -469,5 +526,5 @@ class ApiBase:
                     Dict.
         """
 
-        data = {'lookup': {'object': self.__dimension}}
+        data = {'lookup': {'object': self._dimension}}
         return self.format_and_send_request(data)['data']

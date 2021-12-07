@@ -9,7 +9,7 @@ from .api_base import ApiBase
 class ExpenseReports(ApiBase):
     """Class for Expense Reports APIs."""
     def __init__(self):
-        ApiBase.__init__(self, dimension='EEXPENSES')
+        super().__init__(dimension='EEXPENSES')
 
     def update_attachment(self, key: str, supdocid: str):
         """
