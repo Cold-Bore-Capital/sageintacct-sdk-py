@@ -29,6 +29,50 @@ class ApiBase:
         self._pagesize = pagesize
         self._post_legacy_method = post_legacy_method
 
+    @property
+    def dimension(self):
+        return self._post_legacy_method
+
+    @dimension.setter
+    def dimension(self, dimension: str):
+        """
+        Set the sender id for APIs
+        :param post_legacy_method: sender id
+        :return: None
+        """
+        self._dimension = dimension
+
+    @property
+    def post_legacy_method(self):
+        return self._post_legacy_method
+
+    @post_legacy_method.setter
+    def post_legacy_method(self, post_legacy_method: str):
+        """
+        Set the sender id for APIs
+        :param post_legacy_method: sender id
+        :return: None
+        """
+        self._post_legacy_method = post_legacy_method
+
+    @property
+    def sender_id(self):
+        """
+        Set the sender id for APIs
+        :param sender_id: sender id
+        :return: None
+        """
+        return self._sender_id
+
+    @sender_id.setter
+    def sender_id(self, sender_id: str):
+        """
+        Set the sender id for APIs
+        :param sender_id: sender id
+        :return: None
+        """
+        self._sender_id = sender_id
+
     def set_sender_id(self, sender_id: str):
         """
         Set the sender id for APIs
@@ -256,19 +300,15 @@ class ApiBase:
     def post(self, data: Dict):
         if self._dimension in ('CCTRANSACTION', 'EPPAYMENT', 'create_invoice', 'create_aradjustment','update_invoice','update_customer'):
             return self._construct_post_legacy_payload(data)
+
         elif self._dimension == 'readReport':
             return self._construct_run_report(data)
 
+        elif (self._dimension == 'ARINVOICE' and self._post_legacy_method=='delete'):
+            return self._construct_delete(data)
 
-        return self._construct_post_payload(data)
-
-    def _construct_run_report(self, data: str):
-        payload = {
-            "readReport": {
-                #'type': "interactive",
-                'report': data
-            }}
-        return self.format_and_send_request(payload)
+        else:
+            return self._construct_post_payload(data)
 
     def _construct_post_payload(self, data: Dict):
         payload = {
@@ -279,11 +319,28 @@ class ApiBase:
 
         return self.format_and_send_request(payload)
 
+    def _construct_run_report(self, data: str):
+        payload = {
+            "readReport": {
+                #'type': "interactive",
+                'report': data
+            }}
+        return self.format_and_send_request(payload)
+
+    def _construct_delete(self, data: str) -> str:
+        payload = {"delete": data}
+        return self.format_and_send_request(payload)
+
     def _construct_post_legacy_payload(self, data: Dict):
         payload = {
             self._post_legacy_method: data
         }
+        return self.format_and_send_request(payload)
 
+    def _construct_post_legacy_aradjustment_payload(self, data: Dict):
+        payload = {
+            'create_aradjustment': data
+        }
         return self.format_and_send_request(payload)
 
     def count(self):
