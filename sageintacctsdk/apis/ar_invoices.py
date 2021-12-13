@@ -19,6 +19,7 @@ class ARInvoices(ApiBase):
         # self.post_legacy_method = post_legacy_method
         return self._construct_delete(data)
 
-    def update_invoices(self, data: Dict) -> str:
+    def update(self, data: Dict) -> str:
+        self.post_legacy_method = 'update_invoice'
         return self._construct_post_legacy_payload(data)
 

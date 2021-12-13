@@ -12,3 +12,7 @@ class ARAdjustment(ApiBase):
 
     def create_aradjustment(self, data):
         return self._construct_post_legacy_aradjustment_payload(data)
+
+    def update(self, data):
+        self.post_legacy_method = 'update_aradjustment'
+        return self._construct_post_legacy_aradjustment_payload(data)
