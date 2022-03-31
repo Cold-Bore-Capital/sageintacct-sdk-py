@@ -15,4 +15,4 @@ __all__ = [
     'InternalServerError'
 ]
 
-name = "sageintacctsdk"
+name = "cbc-sageintacctsdk"
