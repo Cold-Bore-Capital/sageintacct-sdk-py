@@ -16,6 +16,7 @@ from .departments import Departments
 from .charge_card_accounts import ChargeCardAccounts
 from .charge_card_transactions import ChargeCardTransactions
 from .customers import Customers
+from .custom_reports import CustomReports
 from .items import Items
 from .invoices import Invoices
 from .ap_payments import APPayments

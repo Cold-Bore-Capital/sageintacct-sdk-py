@@ -4,7 +4,7 @@ Sage Intacct Python SDK
 from .apis import ApiBase, Contacts, Locations, Employees, Accounts, ExpenseTypes, Attachments, ExpenseReports,\
     Vendors, Bills, Projects, Departments, ChargeCardAccounts, ChargeCardTransactions, Customers, Items,\
     APPayments, Reimbursements, CheckingAccounts, SavingsAccounts, Tasks, ExpensePaymentTypes, Dimensions,\
-    DimensionValues, LocationEntities, ARInvoices, TaxDetails, GLDetail, Classes, CustomerTypes, Invoices, ARAdjustment, ReadReport
+    DimensionValues, LocationEntities, ARInvoices, TaxDetails, GLDetail, Classes, CustomerTypes, Invoices, ARAdjustment, ReadReport, CustomReports
 
 
 class SageIntacctSDK:
@@ -47,6 +47,7 @@ class SageIntacctSDK:
         self.charge_card_transactions = ChargeCardTransactions()
         self.customers = Customers()
         self.customer_types = CustomerTypes()
+        self.custom_reports = CustomReports()
         self.items = Items()
         self.invoices = Invoices()
         self.ap_payments = APPayments()
@@ -89,6 +90,7 @@ class SageIntacctSDK:
         self.charge_card_transactions.set_sender_id(self._sender_id)
         self.customers.set_sender_id(self._sender_id)
         self.customer_types.set_sender_id(self._sender_id)
+        self.custom_reports.set_sender_id(self._sender_id)
         self.items.set_sender_id(self._sender_id)
         self.invoices.set_sender_id(self._sender_id)
         self.ap_payments.set_sender_id(self._sender_id)
@@ -127,6 +129,7 @@ class SageIntacctSDK:
         self.charge_card_transactions.set_sender_password(self._sender_password)
         self.customers.set_sender_password(self._sender_password)
         self.customer_types.set_sender_password(self._sender_password)
+        self.custom_reports.set_sender_password(self._sender_password)
         self.items.set_sender_password(self._sender_password)
         self.invoices.set_sender_password(self._sender_password)
         self.ap_payments.set_sender_password(self._sender_password)
@@ -167,6 +170,7 @@ class SageIntacctSDK:
         self.charge_card_transactions.set_session_id(self._session_id)
         self.customers.set_session_id(self._session_id)
         self.customer_types.set_session_id(self._session_id)
+        self.custom_reports.set_session_id(self._session_id)
         self.items.set_session_id(self._session_id)
         self.invoices.set_session_id(self._session_id)
         self.ap_payments.set_session_id(self._session_id)
