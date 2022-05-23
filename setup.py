@@ -7,7 +7,7 @@ with open('README.md', 'r') as f:
     long_description = f.read()
 
 setuptools.setup(
-    name='cbc-sageintacctsdk',
+    name='cbcintacctsdk',
     version='0.0.4',
     author='Ashwin T',
     author_email='ashwin.t@fyle.in',
