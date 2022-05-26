@@ -307,6 +307,9 @@ class ApiBase:
         elif (self._dimension == 'ARINVOICE' and self._post_legacy_method=='delete'):
             return self._construct_delete(data)
 
+        elif (self._dimension =='custom_report'):
+            return self._construct_read_custom_report(data)
+
         else:
             return self._construct_post_payload(data)
 
@@ -323,6 +326,15 @@ class ApiBase:
         payload = {
             "readReport": {
                 #'type': "interactive",
+                'report': data
+            }}
+        return self.format_and_send_request(payload)
+
+    def _construct_read_custom_report(self, data: str):
+        payload = {
+            "readReport": {
+                '@type': "interactive",
+                '@returnDef': "true",
                 'report': data
             }}
         return self.format_and_send_request(payload)
